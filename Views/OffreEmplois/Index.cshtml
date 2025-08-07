@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CVMatchPro.Models.OffreEmploi>
+
+<h2>Liste des Offres d'emploi</h2>
+
+<a class="btn btn-primary mb-2" href="/OffresEmploi/Create">Créer une offre</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Entreprise</th>
+            <th>Lieu</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offre in Model)
+        {
+            <tr>
+                <td>@offre.Titre</td>
+                <td>@offre.Entreprise?.Nom</td>
+                <td>@offre.Lieu</td>
+                <td>@offre.DatePublication.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

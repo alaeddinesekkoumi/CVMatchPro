@@ -1,0 +1,96 @@
+﻿@model CVMatchPro.Models.Candidat
+
+@{
+    ViewData["Title"] = "Profil Candidat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bienvenue @Model.Nom</h2>
+
+<!-- 🧾 Informations de base -->
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+        Informations du Candidat
+    </div>
+    <div class="card-body">
+        <p><strong>Email :</strong> @Model.Email</p>
+    </div>
+</div>
+
+<!-- 📤 Bouton de téléversement -->
+<div class="mt-4">
+    <a class="btn btn-success" asp-controller="CVs" asp-action="Upload">📤 Téléverser un CV</a>
+</div>
+
+<!-- 📄 Liste des CVs -->
+@if (Model.CVs != null && Model.CVs.Any())
+{
+    <div class="mt-4">
+        <h4>Mes CVs déposés :</h4>
+        <ul class="list-group">
+            @foreach (var cv in Model.CVs)
+            {
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            📄 <strong>@cv.FichierNom</strong>
+                            <small class="text-muted">(déposé le @cv.DateDepot.ToShortDateString())</small>
+                        </div>
+                        <div class="btn-group">
+                            <a href="@cv.Url" target="_blank" class="btn btn-sm btn-outline-primary">🔍 Voir</a>
+                            <a href="@cv.Url" download class="btn btn-sm btn-outline-secondary">⬇️ Télécharger</a>
+                            <form asp-controller="CVs" asp-action="Delete" asp-route-id="@cv.Id" method="post" onsubmit="return confirm('Supprimer ce CV ?')" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">🗑️</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- 📌 Données extraites -->
+                    <div class="mt-3 ms-2 border-start ps-3">
+                        <dl class="row">
+                            @if (!string.IsNullOrWhiteSpace(cv.NomExtrait))
+                            {
+                                <dt class="col-sm-3">🧑‍💼 Nom :</dt>
+                                <dd class="col-sm-9">@cv.NomExtrait</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(cv.EmailExtrait))
+                            {
+                                <dt class="col-sm-3">📧 Email :</dt>
+                                <dd class="col-sm-9">@cv.EmailExtrait</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(cv.Telephone))
+                            {
+                                <dt class="col-sm-3">📱 Téléphone :</dt>
+                                <dd class="col-sm-9">@cv.Telephone</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(cv.Formation))
+                            {
+                                <dt class="col-sm-3">🎓 Formations :</dt>
+                                <dd class="col-sm-9">@Html.Raw(cv.Formation.Replace(". ", ".<br/>"))</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(cv.Experience))
+                            {
+                                <dt class="col-sm-3">💼 Expériences :</dt>
+                                <dd class="col-sm-9">@Html.Raw(cv.Experience.Replace(". ", ".<br/>"))</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(cv.CompetencesExtraites))
+                            {
+                                <dt class="col-sm-3">🛠️ Compétences :</dt>
+                                <dd class="col-sm-9">@Html.Raw(cv.CompetencesExtraites.Replace(", ", "<br/>"))</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(cv.CentresInteret))
+                            {
+                                <dt class="col-sm-3">🎯 Centres d’intérêt :</dt>
+                                <dd class="col-sm-9">@Html.Raw(cv.CentresInteret.Replace(", ", "<br/>"))</dd>
+                            }
+                        </dl>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p class="text-muted mt-3">Aucun CV déposé pour le moment.</p>
+}

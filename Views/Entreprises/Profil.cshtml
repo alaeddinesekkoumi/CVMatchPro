@@ -1,0 +1,121 @@
+﻿@model CVMatchPro.Models.Entreprise
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Profil Entreprise";
+}
+
+<h2 class="text-center mb-4">Bienvenue, @Model.Nom</h2>
+
+<div class="text-end mb-3">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajouterOffreModal">Créer une offre</button>
+
+</div>
+
+<div class="row">
+    @foreach (var offre in Model.Offres)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">@offre.Titre</h5>
+                    <p class="card-text"><strong>Description:</strong> @offre.Description</p>
+                    <p class="card-text"><strong>Lieu:</strong> @offre.Lieu</p>
+                    <p class="card-text"><strong>Date:</strong> @offre.DatePublication.ToShortDateString()</p>
+                    <p class="card-text">
+                        <strong>Compétences:</strong>
+                        @string.Join(", ", offre.CompetencesRequises.Select(c => c.Nom))
+                    </p>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("VoirCandidats", "Entreprises", new { id = offre.Id })" class="btn btn-success">Voir candidats</a>
+                        <!-- Bouton pour ouvrir le modal de modification -->
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modifierOffreModal-@offre.Id">Modifier</button>
+                        <a href="@Url.Action("Supprimer", "Entreprises", new { id = offre.Id })" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette offre ?');">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de modification -->
+        <div class="modal fade" id="modifierOffreModal-@offre.Id" tabindex="-1" aria-labelledby="modifierOffreModalLabel-@offre.Id" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="/Entreprises/Modifier">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modifierOffreModalLabel-@offre.Id">Modifier l'offre</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id" value="@offre.Id" />
+
+                            <div class="mb-3">
+                                <label for="titre-@offre.Id" class="form-label">Titre</label>
+                                <input type="text" class="form-control" id="titre-@offre.Id" name="Titre" value="@offre.Titre" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description-@offre.Id" class="form-label">Description</label>
+                                <textarea class="form-control" id="description-@offre.Id" name="Description" required>@offre.Description</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="lieu-@offre.Id" class="form-label">Lieu</label>
+                                <input type="text" class="form-control" id="lieu-@offre.Id" name="Lieu" value="@offre.Lieu" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="competences-@offre.Id" class="form-label">Compétences requises</label>
+                                <input type="text" class="form-control" id="competences-@offre.Id" name="CompetencesText"
+                                       value="@string.Join(", ", offre.CompetencesRequises.Select(c => c.Nom))" />
+                                <small class="form-text text-muted">Séparez les compétences par des virgules.</small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<!-- Modal de création -->
+<div class="modal fade" id="ajouterOffreModal" tabindex="-1" aria-labelledby="ajouterOffreModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ajouterOffreModalLabel">Créer une nouvelle offre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Creer" asp-controller="OffreEmplois" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Titre</label>
+                        <input type="text" name="Titre" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="Description" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Lieu</label>
+                        <input type="text" name="Lieu" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Compétences requises</label>
+                        <input type="text" name="CompetencesText" class="form-control" placeholder="Ex: C#, ASP.NET, SQL" />
+                        <small class="form-text text-muted">Séparez les compétences par des virgules.</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Créer</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

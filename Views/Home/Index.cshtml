@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Accueil";
+    var isAuthenticated = SignInManager.IsSignedIn(User);
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Bienvenue sur CVMatchPro</h1>
+    <p class="lead">Une plateforme intelligente de tri et de matching de CVs pour les entreprises.</p>
+
+    <hr />
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a class="btn btn-primary btn-lg" asp-controller="CVs" asp-action="Upload">Uploader un CV</a>
+
+
+        @if (isAuthenticated)
+        {
+            var user = await UserManager.GetUserAsync(User);
+            var roles = await UserManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+
+            if (role == "Candidat")
+            {
+                <a class="btn btn-info btn-lg" asp-controller="Candidat" asp-action="Profil">Mon Profil</a>
+            }
+            else if (role == "Entreprise")
+            {
+                <a class="btn btn-info btn-lg" asp-controller="Entreprises" asp-action="Profil">Mon Profil</a>
+            }
+        }
+    </div>
+</div>

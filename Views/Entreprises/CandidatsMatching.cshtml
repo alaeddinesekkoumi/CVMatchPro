@@ -1,0 +1,42 @@
+﻿@model CVMatchPro.Models.OffreEmploi
+@{
+    ViewData["Title"] = "Candidats correspondants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Candidats pour : @Model.Titre</h2>
+
+@if (Model.MatchingResults != null && Model.MatchingResults.Any())
+{
+    <table class="table table-bordered mt-4">
+        <thead class="table-light">
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Score</th>
+                <th>Voir CV</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model.MatchingResults.OrderByDescending(r => r.ScorePertinence))
+            {
+                <tr>
+                    <td>@result.CV.Candidat?.Nom</td>
+                    <td>@result.CV.Candidat?.Email</td>
+                    <td>@($"{result.ScorePertinence:P1}")</td>
+                    <td>
+                        <a href="@result.CV.Url" target="_blank" class="btn btn-sm btn-primary">
+                            Voir CV
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted mt-3">Aucun candidat trouvé pour cette offre.</p>
+}
+
+<a asp-action="Profil" class="btn btn-secondary mt-3">⬅ Retour</a>

@@ -1,0 +1,17 @@
+﻿@model CVMatchPro.Models.CV
+@{
+    ViewData["Title"] = "Téléverser un CV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>📤 Téléverser un nouveau CV</h2>
+
+<form asp-action="Upload" asp-controller="CVs" method="post" enctype="multipart/form-data" class="mt-4">
+    <div class="mb-3">
+        <label for="FichierCV" class="form-label">Fichier CV (PDF, DOC, etc.)</label>
+        <input type="file" class="form-control" id="FichierCV" name="FichierCV" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+    <a asp-controller="Candidat" asp-action="Profil" class="btn btn-secondary">Annuler</a>
+</form>

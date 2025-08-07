@@ -1,0 +1,75 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Créer un compte";
+}
+
+<h2>Créer un compte</h2>
+
+<form asp-action="Register" method="post">
+    <div class="form-group">
+        <label>Type de compte :</label><br />
+        <input type="radio" name="Role" value="Candidat" checked onchange="toggleForm()"> Candidat
+        <input type="radio" name="Role" value="Entreprise" onchange="toggleForm()"> Entreprise
+    </div>
+
+    <div id="candidatForm">
+        <div class="form-group">
+            <label>Nom</label>
+            <input asp-for="NomCandidat" class="form-control" />
+            <span asp-validation-for="NomCandidat" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Prénom</label>
+            <input asp-for="PrenomCandidat" class="form-control" />
+            <span asp-validation-for="PrenomCandidat" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div id="entrepriseForm" style="display:none;">
+        <div class="form-group">
+            <label>Nom Entreprise</label>
+            <input asp-for="NomEntreprise" class="form-control" />
+            <span asp-validation-for="NomEntreprise" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Pays</label>
+            <input asp-for="Pays" class="form-control" />
+            <span asp-validation-for="Pays" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Adresse</label>
+            <input asp-for="Adresse" class="form-control" />
+            <span asp-validation-for="Adresse" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Secteur</label>
+            <input asp-for="Secteur" class="form-control" />
+            <span asp-validation-for="Secteur" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Mot de passe</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Créer le compte</button>
+</form>
+
+@section Scripts {
+    <script>
+        function toggleForm() {
+            const role = document.querySelector('input[name="Role"]:checked').value;
+            document.getElementById("candidatForm").style.display = role === "Candidat" ? "block" : "none";
+            document.getElementById("entrepriseForm").style.display = role === "Entreprise" ? "block" : "none";
+        }
+        window.onload = toggleForm;
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

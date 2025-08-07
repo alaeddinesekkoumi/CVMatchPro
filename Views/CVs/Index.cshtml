@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CVMatchPro.Models.CV>
+
+@{
+    ViewData["Title"] = "Liste des CVs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Liste des CVs</h2>
+
+<a class="btn btn-primary mb-3" href="/CVs/Upload">Uploader un nouveau CV</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nom du fichier</th>
+            <th>Lien</th>
+            <th>Nom extrait</th>
+            <th>Email extrait</th>
+            <th>Téléphone</th>
+            <th>Expérience</th>
+            <th>Formation</th>
+            <th>Date de dépôt</th>
+            <th>Candidat</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FichierNom</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Url))
+                    {
+                        <a href="@item.Url" target="_blank">Voir</a>
+                    }
+                </td>
+                <td>@item.NomExtrait</td>
+                <td>@item.EmailExtrait</td>
+                <td>@item.Telephone</td>
+                <td>@item.Experience</td>
+                <td>@item.Formation</td>
+                <td>@item.DateDepot.ToShortDateString()</td>
+                <td>@item.Candidat?.Nom</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Modifier</a>
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Détails</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

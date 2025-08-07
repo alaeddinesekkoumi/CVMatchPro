@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CVMatchPro.Models.MatchingResult>
+
+<h2>Résultats du Matching</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>CV</th>
+            <th>Offre</th>
+            <th>Score (%)</th>
+            <th>Date Matching</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CV?.NomExtrait</td>
+                <td>@item.OffreEmploi?.Titre</td>
+                <td>@item.ScorePertinence.ToString("0.00")</td>
+                <td>@item.DateMatching.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
