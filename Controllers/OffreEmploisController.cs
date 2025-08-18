@@ -21,7 +21,7 @@ public class OffreEmploisController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Creer([FromForm] OffreEmploi offre, [FromForm] string CompetencesText)
+    public async Task<IActionResult> Creer([FromForm] OffreEmploi offre, [FromForm] string CompetencesText, [FromServices] MatchingService matchingService)
     {
         var userId = _userManager.GetUserId(User);
         var entreprise = await _context.Entreprises
@@ -37,13 +37,43 @@ public class OffreEmploisController : Controller
 
         if (!string.IsNullOrWhiteSpace(CompetencesText))
         {
-            var competences = CompetencesText.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                                             .Select(c => new Competence { Nom = c.Trim() })
-                                             .ToList();
+            var competences = CompetencesText
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => new Competence { Nom = c.Trim() })
+                .ToList();
+
             offre.CompetencesRequises = competences;
         }
 
+        // ✅ Ajouter l'offre
         _context.OffresEmploi.Add(offre);
+        await _context.SaveChangesAsync();
+
+        // ✅ Récupérer tous les CV existants
+        var cvs = await _context.CVs
+            .Include(c => c.Candidat)
+            .ToListAsync();
+
+        // ✅ Créer des MatchingResults
+        foreach (var cv in cvs)
+        {
+            var score = matchingService.EvaluerPertinence(
+                string.Join(", ", offre.CompetencesRequises.Select(c => c.Nom)),
+                cv.Experience,
+                cv.Formation
+            );
+
+            var matchingResult = new MatchingResult
+            {
+                OffreEmploiId = offre.Id,
+                CVId = cv.Id,
+                ScorePertinence = score
+            };
+
+            _context.MatchingResults.Add(matchingResult);
+        }
+
+        // ✅ Sauvegarder les MatchingResults
         await _context.SaveChangesAsync();
 
         return RedirectToAction("Profil", "Entreprises");
@@ -120,6 +150,6 @@ public class OffreEmploisController : Controller
         ViewBag.TitreOffre = offre.Titre;
         ViewBag.CandidatsPertinents = candidatsPertinents.OrderByDescending(c => c.score).ToList();
 
-        return View("CandidatsPourOffre");
+        return View("CandidatsMatching");
     }
 }

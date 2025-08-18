@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CVMatchPro.Models.MatchingResult>
+
+<h2>Résultats de matching</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row mt-4">
+        @foreach (var result in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@result.CV?.Candidat?.Nom</h5>
+                        <p class="card-text">
+                            <strong>Email :</strong> @result.CV?.Candidat?.Email <br />
+                            <strong>Score :</strong> @($"{result.ScorePertinence:P1}")
+                        </p>
+                        <a href="@result.CV?.Url" target="_blank" class="btn btn-primary btn-sm">
+                            📄 Voir CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-muted mt-3">Aucun candidat trouvé pour cette offre.</p>
+}
+
+<a asp-action="Profil" asp-controller="Entreprises" class="btn btn-secondary mt-3">⬅ Retour</a>

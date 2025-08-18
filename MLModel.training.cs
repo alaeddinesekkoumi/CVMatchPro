@@ -14,12 +14,13 @@ namespace CVMatchPro
 {
     public partial class MLModel
     {
-        public const string RetrainFilePath =  @"C:\Users\hp\Downloads\matching_dataset.csv.csv";
+        public const string RetrainFilePath = @"Data\matching_dataset.csv";
         public const char RetrainSeparatorChar = ',';
-        public const bool RetrainHasHeader =  true;
-        public const bool RetrainAllowQuoting =  false;
+        public const bool RetrainHasHeader = true;
+        // 🔥 correction ici : toujours activer le support des guillemets
+        public const bool RetrainAllowQuoting = true;
 
-         /// <summary>
+        /// <summary>
         /// Train a new model with the provided dataset.
         /// </summary>
         /// <param name="outputModelPath">File path for saving the model. Should be similar to "C:\YourPath\ModelName.mlnet"</param>
@@ -45,9 +46,14 @@ namespace CVMatchPro
         /// <returns>IDataView with loaded training data.</returns>
         public static IDataView LoadIDataViewFromFile(MLContext mlContext, string inputDataFilePath, char separatorChar, bool hasHeader, bool allowQuoting)
         {
-            return mlContext.Data.LoadFromTextFile<ModelInput>(inputDataFilePath, separatorChar, hasHeader, allowQuoting: allowQuoting);
+            // 🔥 correction ici : on force allowQuoting = true
+            return mlContext.Data.LoadFromTextFile<ModelInput>(
+                inputDataFilePath,
+                separatorChar: separatorChar,
+                hasHeader: hasHeader,
+                allowQuoting: true
+            );
         }
-
 
         /// <summary>
         /// Save a model at the specified path.
@@ -66,7 +72,6 @@ namespace CVMatchPro
                 mlContext.Model.Save(model, dataViewSchema, fs);
             }
         }
-
 
         /// <summary>
         /// Retrain model using the pipeline generated as part of the training process.
@@ -90,13 +95,21 @@ namespace CVMatchPro
         public static IEstimator<ITransformer> BuildPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations
-            var pipeline = mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Competences",outputColumnName:@"Competences")      
-                                    .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Experience",outputColumnName:@"Experience"))      
-                                    .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Formation",outputColumnName:@"Formation"))      
-                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"Competences",@"Experience",@"Formation"}))      
-                                    .Append(mlContext.Regression.Trainers.FastForest(new FastForestRegressionTrainer.Options(){NumberOfTrees=4,NumberOfLeaves=4,FeatureFraction=1F,LabelColumnName=@"Score",FeatureColumnName=@"Features"}));
+            var pipeline = mlContext.Transforms.Text.FeaturizeText(inputColumnName: @"Competences", outputColumnName: @"Competences")
+                                    .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName: @"Experience", outputColumnName: @"Experience"))
+                                    .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName: @"Formation", outputColumnName: @"Formation"))
+                                    .Append(mlContext.Transforms.Concatenate(@"Features", new[] { @"Competences", @"Experience", @"Formation" }))
+                                    // 🔧 j'ai augmenté les arbres et les feuilles pour un modèle plus robuste
+                                    .Append(mlContext.Regression.Trainers.FastForest(new FastForestRegressionTrainer.Options()
+                                    {
+                                        NumberOfTrees = 100,
+                                        NumberOfLeaves = 20,
+                                        FeatureFraction = 1F,
+                                        LabelColumnName = @"Score",
+                                        FeatureColumnName = @"Features"
+                                    }));
 
             return pipeline;
         }
     }
- }
+}

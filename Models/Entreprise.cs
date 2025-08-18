@@ -10,20 +10,20 @@ namespace CVMatchPro.Models
         public int Id { get; set; }
 
         [Required]
-        public string Nom { get; set; }
+        public string? Nom { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public string Secteur { get; set; }
-        public string Adresse { get; set; }
-        public string Pays { get; set; }
+        public string? Secteur { get; set; }
+        public string? Adresse { get; set; }
+        public string? Pays { get; set; }
 
         // 🔗 Liaison avec Identity
-        public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public string? UserId { get; set; }
+        public IdentityUser? User { get; set; }
 
         // 🔗 Lié aux offres
-        public ICollection<OffreEmploi> Offres { get; set; }
+        public ICollection<OffreEmploi>? Offres { get; set; }
     }
 }

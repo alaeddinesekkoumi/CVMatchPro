@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CVMatchPro.Data;
+using CVMatchPro.Models;
+using CVMatchPro.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using CVMatchPro.Data;
-using CVMatchPro.Models;
 using Microsoft.EntityFrameworkCore;
 
 [Authorize(Roles = "Entreprise")]
@@ -31,36 +32,65 @@ public class EntreprisesController : Controller
         return View("Profil", entreprise);
     }
     // ✅ Créer une offre (GET)
-[HttpGet]
-public IActionResult Creer()
-{
-    return PartialView("_FormulaireOffre", new OffreEmploi());
-}
-
-// ✅ Créer une offre (POST)
-[HttpPost]
-public async Task<IActionResult> Creer(OffreEmploi offre, string CompetencesText)
-{
-    var userId = _userManager.GetUserId(User);
-    var entreprise = await _context.Entreprises.FirstOrDefaultAsync(e => e.UserId == userId);
-    if (entreprise == null) return NotFound();
-
-    offre.DatePublication = DateTime.Now;
-    offre.EntrepriseId = entreprise.Id;
-
-    if (!string.IsNullOrWhiteSpace(CompetencesText))
+    [HttpGet]
+    public IActionResult Creer()
     {
-        offre.CompetencesRequises = CompetencesText
-            .Split(',', StringSplitOptions.RemoveEmptyEntries)
-            .Select(c => new Competence { Nom = c.Trim() })
-            .ToList();
+        return PartialView("_FormulaireOffre", new OffreEmploi());
     }
 
-    _context.OffresEmploi.Add(offre);
-    await _context.SaveChangesAsync();
+    // ✅ Créer une offre (POST)
+    [HttpPost]
+    public async Task<IActionResult> Creer(OffreEmploi offre, string CompetencesText, [FromServices] MatchingService matchingService)
+    {
+        var userId = _userManager.GetUserId(User);
+        var entreprise = await _context.Entreprises.FirstOrDefaultAsync(e => e.UserId == userId);
+        if (entreprise == null) return NotFound();
 
-    return RedirectToAction("Profil");
-}
+        offre.DatePublication = DateTime.Now;
+        offre.EntrepriseId = entreprise.Id;
+
+        if (!string.IsNullOrWhiteSpace(CompetencesText))
+        {
+            offre.CompetencesRequises = CompetencesText
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => new Competence { Nom = c.Trim() })
+                .ToList();
+        }
+
+        // ✅ Sauvegarde de l’offre
+        _context.OffresEmploi.Add(offre);
+        await _context.SaveChangesAsync();
+
+        // ✅ Récupérer tous les CVs existants
+        var cvs = await _context.CVs
+            .Include(c => c.Candidat)
+            .ToListAsync();
+
+        // ✅ Générer les résultats de matching pour chaque CV
+        foreach (var cv in cvs)
+        {
+            var score = matchingService.EvaluerPertinence(
+                string.Join(", ", offre.CompetencesRequises.Select(c => c.Nom)),
+                cv.Experience,
+                cv.Formation
+            );
+
+            var result = new MatchingResult
+            {
+                OffreEmploiId = offre.Id,
+                CVId = cv.Id,
+                ScorePertinence = score
+            };
+
+            _context.MatchingResults.Add(result);
+        }
+
+        // ✅ Sauvegarder les résultats de matching
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Profil");
+    }
+
 
 
     // ✅ Voir les candidats correspondant à une offre

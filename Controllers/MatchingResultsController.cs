@@ -12,8 +12,7 @@ public class MatchingResultsController : Controller
     public MatchingResultsController(ApplicationDbContext context)
     {
         _context = context;
-    }
-
+    } 
     public async Task<IActionResult> Index()
     {
         var results = await _context.MatchingResults
@@ -24,4 +23,22 @@ public class MatchingResultsController : Controller
 
         return View(results);
     }
+    public async Task<IActionResult> VoirParOffre(int offreId)
+    {
+        var results = await _context.MatchingResults
+            .Include(m => m.CV)
+                .ThenInclude(cv => cv.Candidat)
+            .Include(m => m.OffreEmploi)
+            .Where(m => m.OffreEmploiId == offreId)
+            .OrderByDescending(m => m.ScorePertinence)
+            .ToListAsync();
+
+        if (!results.Any())
+        {
+            return NotFound("Aucun résultat de matching trouvé pour cette offre.");
+        }
+
+        return View("CandidatsMatching", results);
+    }
+
 }

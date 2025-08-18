@@ -24,10 +24,10 @@ namespace CVMatchPro.Models
         public int CandidatId { get; set; }
         public Candidat? Candidat { get; set; }
 
-        public ICollection<Competence> Competences { get; set; }
-        public ICollection<MatchingResult> MatchingResults { get; set; }
+        public ICollection<Competence>? Competences { get; set; }
+        public ICollection<MatchingResult>? MatchingResults { get; set; }
 
         [NotMapped]
-        public IFormFile FichierCV { get; set; }
+        public IFormFile? FichierCV { get; set; }
     }
 }

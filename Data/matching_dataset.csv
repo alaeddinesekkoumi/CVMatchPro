@@ -1,11 +1,211 @@
 Competences,Experience,Formation,Score
-".NET; SQL; ASP.NET","2 ans d�veloppeur web","Master Informatique",0.85
-"Java; Spring Boot; Angular","3 ans ing�nieur logiciel","Master G�nie Logiciel",0.95
-"HTML; CSS; JavaScript","1 an d�veloppeur front-end","Licence Informatique",0.70
-"Python; Django; ML","2 ans Data Scientist","Master Data Science",0.92
-"React; Node.js; MongoDB","2 ans d�veloppeur full stack","Master D�veloppement Web",0.90
-"PHP; Laravel; MySQL","3 ans d�veloppeur PHP","Licence D�veloppement Web",0.75
-"Photoshop; Illustrator; UX","1 an UI designer","Licence Design",0.65
-"Excel; Power BI; SQL","2 ans analyste de donn�es","Master Business Intelligence",0.87
-"C++; Qt; Algorithmique","3 ans ing�nieur embarqu�","Master Syst�mes Embarqu�s",0.78
-"Unity; C#; Game Design","2 ans d�veloppeur jeux vid�o","Master Jeux Vid�o",0.80
+.NET; SQL; ASP.NET,2 ans développeur web,Master Informatique,0.85
+Java; Spring Boot; Angular,3 ans ingénieur logiciel,Master Génie Logiciel,0.95
+HTML; CSS; JavaScript,1 an développeur front-end,Licence Informatique,0.7
+Python; Django; ML,2 ans Data Scientist,Master Data Science,0.92
+React; Node.js; MongoDB,2 ans développeur full stack,Master Développement Web,0.9
+PHP; Laravel; MySQL,3 ans développeur PHP,Licence Développement Web,0.75
+Photoshop; Illustrator; UX,1 an UI designer,Licence Design,0.65
+Excel; Power BI; SQL,2 ans analyste de données,Master Business Intelligence,0.87
+C++; Qt; Algorithmique,3 ans ingénieur embarqué,Master Systèmes Embarqués,0.78
+Unity; C#; Game Design,2 ans développeur jeux vidéo,Master Jeux Vidéo,0.8
+Machine Learning; NLP; Python,1 an développeur web,Master Systèmes Embarqués,0.87
+Ruby; Rails; PostgreSQL,3 ans développeur web,Licence Développement Web,0.69
+.NET; C#; Azure,2 ans ingénieur logiciel,Master Business Intelligence,0.76
+Power BI; SQL; Excel,2 ans analyste de données,Licence Design,0.88
+Scala; Spark; Big Data,1 an développeur mobile,Doctorat Informatique,0.93
+JavaScript; Vue.js; Node.js,2 ans UI designer,Licence Informatique,0.66
+Go; Docker; Kubernetes,1 an analyste de données,Master Systèmes Embarqués,0.62
+Python; Flask; TensorFlow,1 an ingénieur logiciel,Master Développement Web,0.69
+Go; Docker; Kubernetes,3 ans Data Scientist,Licence Développement Web,0.63
+Photoshop; UI/UX; Figma,2 ans Data Scientist,Master Développement Web,0.84
+JavaScript; Vue.js; Node.js,1 an développeur web,Licence Design,0.7
+Photoshop; UI/UX; Figma,2 ans développeur mobile,Licence Informatique,0.8
+Photoshop; UI/UX; Figma,2 ans ingénieur logiciel,Master Systèmes Embarqués,0.61
+Photoshop; UI/UX; Figma,1 an UI designer,Doctorat Informatique,0.68
+Ruby; Rails; PostgreSQL,2 ans UI designer,Master Informatique,0.75
+Cybersecurity; Networking; Linux,2 ans développeur web,Master Data Science,0.83
+Machine Learning; NLP; Python,1 an UI designer,Licence Design,0.65
+Go; Docker; Kubernetes,3 ans développeur web,Master Informatique,0.79
+Photoshop; UI/UX; Figma,1 an développeur web,Master Développement Web,0.72
+Power BI; SQL; Excel,1 an analyste de données,Master Business Intelligence,0.79
+Python; Flask; TensorFlow,1 an ingénieur logiciel,Master Informatique,0.93
+Machine Learning; NLP; Python,2 ans UI designer,Master Systèmes Embarqués,0.85
+Python; Flask; TensorFlow,1 an UI designer,Licence Design,0.72
+Power BI; SQL; Excel,3 ans analyste de données,Master Jeux Vidéo,0.83
+Machine Learning; NLP; Python,1 an développeur web,Licence Design,0.62
+Power BI; SQL; Excel,3 ans développeur mobile,Master Génie Logiciel,0.85
+Photoshop; UI/UX; Figma,1 an développeur web,Master Développement Web,0.65
+Photoshop; UI/UX; Figma,3 ans ingénieur logiciel,Master Business Intelligence,0.69
+Ruby; Rails; PostgreSQL,1 an UI designer,Master Génie Logiciel,0.95
+JavaScript; Vue.js; Node.js,1 an ingénieur logiciel,Master Business Intelligence,0.88
+Scala; Spark; Big Data,2 ans analyste de données,Licence Design,0.89
+Python; Flask; TensorFlow,3 ans Data Scientist,Licence Développement Web,0.82
+Photoshop; UI/UX; Figma,1 an développeur mobile,Master Business Intelligence,0.77
+Embedded C; Microcontrollers; RTOS,2 ans ingénieur logiciel,Master Business Intelligence,0.69
+Go; Docker; Kubernetes,3 ans ingénieur logiciel,Master Informatique,0.7
+Scala; Spark; Big Data,3 ans ingénieur logiciel,Master Systèmes Embarqués,0.85
+Go; Docker; Kubernetes,3 ans analyste de données,Master Business Intelligence,0.69
+Ruby; Rails; PostgreSQL,1 an UI designer,Licence Développement Web,0.78
+Kotlin; Android; Firebase,2 ans ingénieur logiciel,Master Jeux Vidéo,0.94
+JavaScript; Vue.js; Node.js,3 ans développeur web,Master Jeux Vidéo,0.63
+Kotlin; Android; Firebase,2 ans analyste de données,Master Informatique,0.92
+Scala; Spark; Big Data,3 ans UI designer,Master Data Science,0.92
+Go; Docker; Kubernetes,1 an Data Scientist,Master Systèmes Embarqués,0.74
+Embedded C; Microcontrollers; RTOS,3 ans ingénieur logiciel,Master Data Science,0.81
+Python; Flask; TensorFlow,2 ans analyste de données,Licence Informatique,0.9
+Ruby; Rails; PostgreSQL,1 an ingénieur logiciel,Doctorat Informatique,0.65
+Python; Flask; TensorFlow,3 ans analyste de données,Master Business Intelligence,0.85
+Ruby; Rails; PostgreSQL,3 ans développeur mobile,Licence Informatique,0.71
+Power BI; SQL; Excel,3 ans ingénieur logiciel,Licence Développement Web,0.96
+.NET; C#; Azure,2 ans développeur web,Master Business Intelligence,0.87
+JavaScript; Vue.js; Node.js,1 an ingénieur logiciel,Doctorat Informatique,0.92
+Python; Flask; TensorFlow,2 ans UI designer,Master Génie Logiciel,0.95
+JavaScript; Vue.js; Node.js,1 an ingénieur logiciel,Master Développement Web,0.69
+Kotlin; Android; Firebase,1 an analyste de données,Master Systèmes Embarqués,0.78
+Python; Flask; TensorFlow,3 ans UI designer,Doctorat Informatique,0.97
+Scala; Spark; Big Data,2 ans UI designer,Master Génie Logiciel,0.94
+Kotlin; Android; Firebase,2 ans développeur mobile,Doctorat Informatique,0.61
+Embedded C; Microcontrollers; RTOS,3 ans développeur mobile,Master Data Science,0.75
+Ruby; Rails; PostgreSQL,2 ans analyste de données,Master Génie Logiciel,0.72
+Power BI; SQL; Excel,1 an analyste de données,Master Systèmes Embarqués,0.72
+Go; Docker; Kubernetes,3 ans UI designer,Licence Développement Web,0.76
+Java; Spring Boot; Hibernate,1 an développeur web,Master Génie Logiciel,0.67
+Ruby; Rails; PostgreSQL,1 an développeur web,Master Business Intelligence,0.69
+Cybersecurity; Networking; Linux,1 an développeur web,Master Développement Web,0.78
+JavaScript; Vue.js; Node.js,3 ans analyste de données,Master Développement Web,0.78
+Power BI; SQL; Excel,1 an UI designer,Master Data Science,0.95
+JavaScript; Vue.js; Node.js,1 an analyste de données,Licence Design,0.89
+Java; Spring Boot; Hibernate,2 ans développeur mobile,Doctorat Informatique,0.81
+Photoshop; UI/UX; Figma,2 ans Data Scientist,Doctorat Informatique,0.8
+.NET; C#; Azure,1 an ingénieur logiciel,Master Jeux Vidéo,0.98
+Python; Flask; TensorFlow,2 ans ingénieur logiciel,Licence Informatique,0.79
+Swift; iOS; Xcode,1 an développeur mobile,Master Jeux Vidéo,0.66
+JavaScript; Vue.js; Node.js,2 ans développeur mobile,Master Data Science,0.8
+Scala; Spark; Big Data,2 ans développeur web,Master Informatique,0.66
+JavaScript; Vue.js; Node.js,3 ans UI designer,Master Business Intelligence,0.77
+Photoshop; UI/UX; Figma,3 ans UI designer,Licence Design,0.63
+Kotlin; Android; Firebase,1 an développeur web,Master Business Intelligence,0.93
+PHP; Symfony; MySQL,1 an développeur web,Master Business Intelligence,0.69
+JavaScript; Vue.js; Node.js,2 ans développeur web,Master Développement Web,0.75
+Photoshop; UI/UX; Figma,3 ans analyste de données,Master Business Intelligence,0.94
+PHP; Symfony; MySQL,1 an développeur mobile,Licence Développement Web,0.8
+.NET; C#; Azure,3 ans analyste de données,Licence Développement Web,0.96
+PHP; Symfony; MySQL,3 ans ingénieur logiciel,Master Génie Logiciel,0.81
+Java; Spring Boot; Hibernate,2 ans analyste de données,Licence Informatique,0.67
+Scala; Spark; Big Data,3 ans développeur mobile,Master Informatique,0.7
+Swift; iOS; Xcode,1 an UI designer,Master Data Science,0.74
+Kotlin; Android; Firebase,2 ans UI designer,Licence Design,0.72
+Embedded C; Microcontrollers; RTOS,3 ans ingénieur logiciel,Doctorat Informatique,0.83
+Python; Flask; TensorFlow,2 ans UI designer,Licence Design,0.84
+Power BI; SQL; Excel,3 ans développeur web,Licence Informatique,0.7
+Cybersecurity; Networking; Linux,3 ans développeur web,Master Jeux Vidéo,0.63
+Power BI; SQL; Excel,1 an développeur web,Licence Développement Web,0.68
+Ruby; Rails; PostgreSQL,3 ans développeur mobile,Licence Informatique,0.91
+Embedded C; Microcontrollers; RTOS,2 ans UI designer,Licence Informatique,0.74
+PHP; Symfony; MySQL,2 ans UI designer,Master Data Science,0.76
+Embedded C; Microcontrollers; RTOS,2 ans Data Scientist,Master Développement Web,0.9
+Go; Docker; Kubernetes,2 ans UI designer,Master Business Intelligence,0.71
+Swift; iOS; Xcode,2 ans développeur mobile,Licence Développement Web,0.77
+Cybersecurity; Networking; Linux,3 ans UI designer,Licence Informatique,0.65
+Machine Learning; NLP; Python,3 ans développeur web,Master Informatique,0.82
+Go; Docker; Kubernetes,2 ans développeur web,Master Business Intelligence,0.76
+Java; Spring Boot; Hibernate,1 an UI designer,Licence Informatique,0.79
+Machine Learning; NLP; Python,3 ans analyste de données,Master Informatique,0.78
+Power BI; SQL; Excel,1 an ingénieur logiciel,Licence Développement Web,0.64
+PHP; Symfony; MySQL,2 ans UI designer,Master Systèmes Embarqués,0.7
+Ruby; Rails; PostgreSQL,3 ans UI designer,Licence Informatique,0.88
+Photoshop; UI/UX; Figma,2 ans développeur web,Master Data Science,0.81
+Cybersecurity; Networking; Linux,2 ans analyste de données,Master Informatique,0.64
+Power BI; SQL; Excel,3 ans développeur web,Licence Design,0.91
+Java; Spring Boot; Hibernate,1 an UI designer,Master Systèmes Embarqués,0.75
+Cybersecurity; Networking; Linux,1 an analyste de données,Licence Développement Web,0.76
+Cybersecurity; Networking; Linux,1 an développeur mobile,Master Jeux Vidéo,0.63
+JavaScript; Vue.js; Node.js,2 ans analyste de données,Master Systèmes Embarqués,0.73
+Scala; Spark; Big Data,2 ans ingénieur logiciel,Doctorat Informatique,0.91
+Scala; Spark; Big Data,1 an développeur web,Master Systèmes Embarqués,0.64
+Embedded C; Microcontrollers; RTOS,1 an développeur web,Master Jeux Vidéo,0.79
+Swift; iOS; Xcode,1 an Data Scientist,Master Informatique,0.89
+PHP; Symfony; MySQL,3 ans développeur web,Doctorat Informatique,0.92
+Java; Spring Boot; Hibernate,3 ans Data Scientist,Licence Informatique,0.85
+Go; Docker; Kubernetes,1 an ingénieur logiciel,Master Business Intelligence,0.91
+Java; Spring Boot; Hibernate,2 ans développeur mobile,Master Business Intelligence,0.72
+Kotlin; Android; Firebase,1 an développeur mobile,Master Data Science,0.92
+.NET; C#; Azure,2 ans développeur mobile,Master Business Intelligence,0.74
+Ruby; Rails; PostgreSQL,1 an UI designer,Master Jeux Vidéo,0.75
+Power BI; SQL; Excel,2 ans UI designer,Master Jeux Vidéo,0.94
+.NET; C#; Azure,2 ans UI designer,Master Jeux Vidéo,0.73
+PHP; Symfony; MySQL,1 an Data Scientist,Master Développement Web,0.76
+Machine Learning; NLP; Python,3 ans développeur web,Doctorat Informatique,0.85
+Photoshop; UI/UX; Figma,3 ans UI designer,Master Informatique,0.86
+Embedded C; Microcontrollers; RTOS,3 ans développeur mobile,Master Jeux Vidéo,0.96
+Java; Spring Boot; Hibernate,1 an analyste de données,Master Systèmes Embarqués,0.92
+.NET; C#; Azure,2 ans analyste de données,Master Jeux Vidéo,0.71
+Kotlin; Android; Firebase,2 ans ingénieur logiciel,Licence Informatique,0.85
+Swift; iOS; Xcode,1 an ingénieur logiciel,Master Jeux Vidéo,0.9
+.NET; C#; Azure,3 ans Data Scientist,Master Systèmes Embarqués,0.93
+Swift; iOS; Xcode,3 ans analyste de données,Master Data Science,0.67
+JavaScript; Vue.js; Node.js,3 ans analyste de données,Master Jeux Vidéo,0.78
+Photoshop; UI/UX; Figma,1 an Data Scientist,Master Génie Logiciel,0.61
+Swift; iOS; Xcode,3 ans ingénieur logiciel,Licence Design,0.66
+Kotlin; Android; Firebase,1 an développeur web,Master Génie Logiciel,0.79
+Machine Learning; NLP; Python,3 ans ingénieur logiciel,Doctorat Informatique,0.81
+PHP; Symfony; MySQL,1 an ingénieur logiciel,Licence Informatique,0.7
+Photoshop; UI/UX; Figma,1 an UI designer,Licence Design,0.96
+Machine Learning; NLP; Python,3 ans UI designer,Master Business Intelligence,0.95
+Photoshop; UI/UX; Figma,2 ans analyste de données,Master Business Intelligence,0.95
+Embedded C; Microcontrollers; RTOS,3 ans ingénieur logiciel,Master Génie Logiciel,0.84
+Java; Spring Boot; Hibernate,2 ans Data Scientist,Licence Design,0.81
+Machine Learning; NLP; Python,1 an analyste de données,Licence Développement Web,0.84
+Ruby; Rails; PostgreSQL,3 ans développeur mobile,Master Business Intelligence,0.95
+Kotlin; Android; Firebase,3 ans développeur web,Master Informatique,0.83
+Java; Spring Boot; Hibernate,2 ans développeur mobile,Master Génie Logiciel,0.74
+Ruby; Rails; PostgreSQL,2 ans développeur web,Master Informatique,0.9
+PHP; Symfony; MySQL,2 ans UI designer,Licence Développement Web,0.74
+Power BI; SQL; Excel,1 an analyste de données,Doctorat Informatique,0.63
+Swift; iOS; Xcode,2 ans UI designer,Master Génie Logiciel,0.93
+.NET; C#; Azure,3 ans analyste de données,Master Jeux Vidéo,0.64
+Go; Docker; Kubernetes,1 an analyste de données,Master Business Intelligence,0.7
+Go; Docker; Kubernetes,3 ans UI designer,Doctorat Informatique,0.96
+JavaScript; Vue.js; Node.js,1 an analyste de données,Licence Informatique,0.89
+Power BI; SQL; Excel,2 ans développeur web,Master Développement Web,0.73
+Embedded C; Microcontrollers; RTOS,3 ans développeur mobile,Master Data Science,0.63
+Java; Spring Boot; Hibernate,2 ans Data Scientist,Master Business Intelligence,0.85
+Scala; Spark; Big Data,3 ans ingénieur logiciel,Licence Design,0.75
+Photoshop; UI/UX; Figma,2 ans développeur mobile,Master Data Science,0.69
+JavaScript; Vue.js; Node.js,2 ans Data Scientist,Master Génie Logiciel,0.96
+Machine Learning; NLP; Python,3 ans analyste de données,Doctorat Informatique,0.94
+Photoshop; UI/UX; Figma,2 ans Data Scientist,Doctorat Informatique,0.64
+Java; Spring Boot; Hibernate,3 ans ingénieur logiciel,Licence Design,0.61
+JavaScript; Vue.js; Node.js,3 ans développeur mobile,Master Informatique,0.65
+Embedded C; Microcontrollers; RTOS,3 ans développeur web,Master Systèmes Embarqués,0.67
+Go; Docker; Kubernetes,3 ans analyste de données,Master Jeux Vidéo,0.89
+Photoshop; UI/UX; Figma,2 ans ingénieur logiciel,Master Systèmes Embarqués,0.71
+Python; Flask; TensorFlow,3 ans développeur web,Licence Développement Web,0.85
+Kotlin; Android; Firebase,2 ans développeur web,Master Génie Logiciel,0.68
+.NET; C#; Azure,1 an Data Scientist,Doctorat Informatique,0.78
+Ruby; Rails; PostgreSQL,3 ans développeur mobile,Master Jeux Vidéo,0.95
+PHP; Symfony; MySQL,2 ans développeur mobile,Master Génie Logiciel,0.95
+Python; Flask; TensorFlow,3 ans analyste de données,Master Systèmes Embarqués,0.61
+PHP; Symfony; MySQL,3 ans Data Scientist,Master Informatique,0.86
+Embedded C; Microcontrollers; RTOS,1 an Data Scientist,Master Génie Logiciel,0.69
+Kotlin; Android; Firebase,2 ans ingénieur logiciel,Licence Développement Web,0.79
+Power BI; SQL; Excel,1 an développeur web,Licence Développement Web,0.91
+Swift; iOS; Xcode,2 ans analyste de données,Doctorat Informatique,0.9
+Embedded C; Microcontrollers; RTOS,3 ans Data Scientist,Master Systèmes Embarqués,0.8
+Power BI; SQL; Excel,3 ans développeur web,Master Génie Logiciel,0.67
+Java; Spring Boot; Hibernate,2 ans développeur web,Master Data Science,0.83
+Power BI; SQL; Excel,2 ans analyste de données,Master Jeux Vidéo,0.92
+Python; Flask; TensorFlow,1 an UI designer,Master Jeux Vidéo,0.9
+Cybersecurity; Networking; Linux,1 an UI designer,Master Génie Logiciel,0.77
+Machine Learning; NLP; Python,3 ans développeur web,Master Informatique,0.67
+Photoshop; UI/UX; Figma,3 ans UI designer,Master Génie Logiciel,0.8
+PHP; Symfony; MySQL,1 an UI designer,Master Data Science,0.64
+Java; Spring Boot; Hibernate,3 ans développeur mobile,Master Développement Web,0.91
+Kotlin; Android; Firebase,3 ans analyste de données,Master Jeux Vidéo,0.79
+Cybersecurity; Networking; Linux,3 ans développeur mobile,Licence Informatique,0.84
+Java; Spring Boot; Hibernate,3 ans ingénieur logiciel,Licence Informatique,0.88
+Ruby; Rails; PostgreSQL,3 ans ingénieur logiciel,Master Génie Logiciel,0.84
+JavaScript; Vue.js; Node.js,3 ans UI designer,Master Génie Logiciel,0.71
+JavaScript; Vue.js; Node.js,1 an analyste de données,Doctorat Informatique,0.89
+.NET; C#; Azure,2 ans développeur mobile,Master Génie Logiciel,0.86
