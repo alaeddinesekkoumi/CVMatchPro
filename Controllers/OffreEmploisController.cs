@@ -152,4 +152,24 @@ public class OffreEmploisController : Controller
 
         return View("CandidatsMatching");
     }
+
+    [AllowAnonymous]
+    public async Task<IActionResult> Details(int id)
+    {
+        var offre = await _context.OffresEmploi
+            .Include(o => o.Entreprise)
+            .Include(o => o.CompetencesRequises) // <-- AJOUT ICI
+            .FirstOrDefaultAsync(o => o.Id == id);
+
+        if (offre == null)
+        {
+            return NotFound();
+        }
+
+        return View(offre);
+    }
+
+
+
+    
 }

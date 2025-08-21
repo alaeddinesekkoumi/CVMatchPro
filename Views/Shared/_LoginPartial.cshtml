@@ -1,40 +1,75 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav align-items-center gap-2">
     @if (SignInManager.IsSignedIn(User))
     {
+        <!-- Bonjour utilisateur -->
         <li class="nav-item">
-            <span class="nav-link text-dark">Bonjour, @User.Identity?.Name!</span>
+            <span class="nav-link text-dark">
+                <i class="bi bi-person-circle me-1"></i> Bonjour, <strong>@User.Identity?.Name</strong>
+            </span>
         </li>
 
+        <!-- Profil Candidat -->
         @if (ViewData["UserRole"] as string == "Candidat")
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Candidat" asp-action="Profil">Profil</a>
+                <a class="nav-link btn btn-outline-primary rounded-pill px-3" 
+                   asp-controller="Candidat" asp-action="Profil">
+                    <i class="bi bi-file-person me-1"></i> Mon Profil
+                </a>
             </li>
         }
         else if (ViewData["UserRole"] as string == "Entreprise")
         {
+            
+            <li class="nav-item dropdown position-relative">
+                <button class="btn btn-light position-relative" type="button" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-bell fs-4"></i>
+                    <span id="notifCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notifDropdown" style="min-width: 300px;" id="notifList">
+                    <li class="text-center text-muted">Aucune notification</li>
+                </ul>
+            </li>
+
+            
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Entreprises" asp-action="Profil">Profil</a>
+                <a class="nav-link btn btn-outline-primary rounded-pill px-3" 
+                   asp-controller="Entreprises" asp-action="Profil">
+                    <i class="bi bi-building me-1"></i> Espace Entreprise
+                </a>
             </li>
         }
 
+        
         <li class="nav-item">
-            <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
+            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                 @Html.AntiForgeryToken()
-                <button type="submit" class="nav-link btn btn-link text-dark">Déconnexion</button>
+                <button type="submit" class="btn btn-danger rounded-pill px-3">
+                    <i class="bi bi-box-arrow-right me-1"></i> Déconnexion
+                </button>
             </form>
         </li>
     }
     else
     {
+        
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">S’inscrire</a>
+            <a class="btn btn-outline-primary rounded-pill px-3" 
+               asp-controller="Account" asp-action="Register">
+                <i class="bi bi-person-plus me-1"></i> S’inscrire
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Connexion</a>
+            <a class="btn btn-primary rounded-pill px-3 text-white" 
+               asp-controller="Account" asp-action="Login">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Connexion
+            </a>
         </li>
     }
 </ul>
+
+

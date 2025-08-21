@@ -1,49 +1,38 @@
 ﻿@model CVMatchPro.Models.OffreEmploi
 
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Détails de l'offre";
 }
 
-<h1>Details</h1>
+<h2>@Model.Titre</h2>
 
-<div>
-    <h4>OffreEmploi</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lieu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lieu)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePublication)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatePublication)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Entreprise)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Entreprise.Id)
-        </dd>
-    </dl>
+<div class="card">
+    <div class="card-body">
+        <p><strong>Description :</strong> @Model.Description</p>
+        <p><strong>Lieu :</strong> @Model.Lieu</p>
+        <p><strong>Date de publication :</strong> @Model.DatePublication.ToShortDateString()</p>
+
+        <p><strong>Compétences requises :</strong></p>
+        <ul>
+        @if (Model.CompetencesRequises != null && Model.CompetencesRequises.Any())
+        {
+            foreach (var comp in Model.CompetencesRequises)
+            {
+                <li>@comp.Nom</li>
+            }
+        }
+        else
+        {
+            <li>Aucune compétence spécifiée</li>
+        }
+        </ul>
+
+        @if (Model.Entreprise != null)
+        {
+            <p><strong>Entreprise :</strong> @Model.Entreprise.Nom</p>
+        }
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Retour</a>
+

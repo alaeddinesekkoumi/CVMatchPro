@@ -168,4 +168,60 @@ public class EntreprisesController : Controller
 
         return RedirectToAction("Profil");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> EditProfil()
+    {
+        var userId = _userManager.GetUserId(User);
+        var entreprise = await _context.Entreprises.FirstOrDefaultAsync(e => e.UserId == userId);
+
+        if (entreprise == null) return NotFound();
+
+        return View("Edit", entreprise);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditProfil(Entreprise entreprise, IFormFile? logo)
+    {
+        var userId = _userManager.GetUserId(User);
+        var existingEntreprise = await _context.Entreprises.FirstOrDefaultAsync(e => e.UserId == userId);
+
+        if (existingEntreprise == null) return NotFound();
+
+        // 📌 Upload image si un fichier est fourni
+        if (logo != null && logo.Length > 0)
+        {
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(logo.FileName);
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/entreprises");
+
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
+
+            var filePath = Path.Combine(uploadPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await logo.CopyToAsync(stream);
+            }
+
+            // ✅ On stocke le chemin relatif pour que <img src=""> fonctionne
+            existingEntreprise.LogoUrl = "/images/entreprises/" + fileName;
+        }
+
+
+        // ✅ Mettre à jour les infos
+        existingEntreprise.Nom = entreprise.Nom;
+        existingEntreprise.Email = entreprise.Email;
+        existingEntreprise.Domaine = entreprise.Domaine;
+        existingEntreprise.Secteur = entreprise.Secteur;
+        existingEntreprise.Adresse = entreprise.Adresse;
+        existingEntreprise.Ville = entreprise.Ville;
+        existingEntreprise.Pays = entreprise.Pays;
+
+        _context.Update(existingEntreprise);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Profil");
+    }
+
 }

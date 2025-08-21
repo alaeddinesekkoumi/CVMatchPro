@@ -19,6 +19,8 @@ namespace CVMatchPro.Data
         public DbSet<Competence> Competences { get; set; }
         public DbSet<MatchingResult> MatchingResults { get; set; }
 
+       
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -56,6 +58,12 @@ namespace CVMatchPro.Data
             modelBuilder.Entity<MatchingResult>()
                 .HasIndex(m => new { m.CVId, m.OffreEmploiId })
                 .IsUnique();
+
+           
+
+
+
+
         }
 
     }

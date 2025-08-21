@@ -19,6 +19,15 @@ namespace CVMatchPro.Models
         public string? Adresse { get; set; }
         public string? Pays { get; set; }
 
+        // 📷 Photo de l'entreprise (URL ou chemin dans wwwroot)
+        public string? LogoUrl { get; set; }
+
+        // 🌍 Domaine d'activité
+        public string? Domaine { get; set; }
+
+        // Ville ou lieu précis
+        public string? Ville { get; set; }
+
         // 🔗 Liaison avec Identity
         public string? UserId { get; set; }
         public IdentityUser? User { get; set; }

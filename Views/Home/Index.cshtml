@@ -2,20 +2,20 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@model IEnumerable<CVMatchPro.Models.OffreEmploi>
+
 @{
     ViewData["Title"] = "Accueil";
     var isAuthenticated = SignInManager.IsSignedIn(User);
 }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">Bienvenue sur CVMatchPro</h1>
-    <p class="lead">Une plateforme intelligente de tri et de matching de CVs pour les entreprises.</p>
+<div class="container mt-5">
 
-    <hr />
-
-    <div class="d-flex justify-content-center gap-3 mt-4">
-        <a class="btn btn-primary btn-lg" asp-controller="CVs" asp-action="Upload">Uploader un CV</a>
-
+    <!-- Boutons selon l'utilisateur -->
+    <div class="d-flex justify-content-center gap-3 mb-5">
+        <a class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm" asp-controller="CVs" asp-action="Upload">
+            <i class="bi bi-upload me-2"></i> Uploader un CV
+        </a>
 
         @if (isAuthenticated)
         {
@@ -25,12 +25,75 @@
 
             if (role == "Candidat")
             {
-                <a class="btn btn-info btn-lg" asp-controller="Candidat" asp-action="Profil">Mon Profil</a>
+                <a class="btn btn-info btn-lg rounded-pill px-4 shadow-sm" asp-controller="Candidat" asp-action="Profil">
+                    <i class="bi bi-person-circle me-2"></i> Mon Profil
+                </a>
             }
             else if (role == "Entreprise")
             {
-                <a class="btn btn-info btn-lg" asp-controller="Entreprises" asp-action="Profil">Mon Profil</a>
+                <a class="btn btn-info btn-lg rounded-pill px-4 shadow-sm" asp-controller="Entreprises" asp-action="Profil">
+                    <i class="bi bi-building me-2"></i> Mon Profil
+                </a>
             }
         }
     </div>
+
+    <!-- Section Offres d'emploi pour candidats -->
+    @if (isAuthenticated)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var roles = await UserManager.GetRolesAsync(user);
+        var role = roles.FirstOrDefault();
+
+        if (role == "Candidat")
+        {
+            <h2 class="text-center mb-4 fw-bold text-dark">🎯 Offres d’emploi récentes</h2>
+
+            <div class="row">
+                @foreach (var offre in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-lg h-100 border-0 rounded-4 hover-shadow transition">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-primary fw-bold">@offre.Titre</h5>
+                                <p class="card-text text-muted">
+                                    @(offre.Description?.Length > 120 
+                                        ? offre.Description.Substring(0, 120) + "..." 
+                                        : offre.Description)
+                                </p>
+
+                                <ul class="list-unstyled small text-secondary mb-3">
+                                    <li><i class="bi bi-geo-alt-fill text-danger"></i> @offre.Lieu</li>
+                                    <li><i class="bi bi-building text-secondary"></i> @offre.Entreprise?.Nom</li>
+                                    <li><i class="bi bi-calendar text-secondary"></i> @offre.DatePublication.ToString("dd/MM/yyyy")</li>
+                                </ul>
+
+                                <div class="mt-auto d-flex flex-column gap-2">
+                                    <a asp-controller="OffreEmplois" asp-action="Details" asp-route-id="@offre.Id" 
+                                       class="btn btn-outline-primary w-100 rounded-pill">
+                                        <i class="bi bi-eye"></i> Voir l’offre
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center rounded-3 shadow-sm">
+                    <i class="bi bi-info-circle"></i> Aucune offre disponible pour le moment.
+                </div>
+            }
+        }
+    }
 </div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+</style>

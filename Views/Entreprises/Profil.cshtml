@@ -6,14 +6,68 @@
     ViewData["Title"] = "Profil Entreprise";
 }
 
-<h2 class="text-center mb-4">Bienvenue, @Model.Nom</h2>
+<div class="container my-5">
 
-<div class="text-end mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajouterOffreModal">
-        Créer une offre
-    </button>
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary">👔 Profil de l'entreprise</h1>
+        <p class="text-muted">Bienvenue, <span class="fw-semibold">@Model.Nom</span></p>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex justify-content-end gap-2 mb-4">
+        <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#ajouterOffreModal">
+            <i class="bi bi-plus-circle"></i> Créer une offre
+        </button>
+        <a asp-action="EditProfil" asp-controller="Entreprises" class="btn btn-warning shadow-sm">
+            <i class="bi bi-pencil-square"></i> Modifier le profil
+        </a>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body p-5">
+
+            <div class="row align-items-center">
+                <!-- Logo -->
+                <div class="col-md-3 text-center">
+                    @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                    {
+                        <img src="@Model.LogoUrl" alt="Logo de @Model.Nom" 
+                             class="rounded-circle shadow-sm mb-3" 
+                             style="max-width: 150px; max-height:150px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-light text-muted d-flex align-items-center justify-content-center rounded-circle shadow-sm mb-3"
+                             style="width:150px; height:150px;">
+                            <i class="bi bi-building" style="font-size:3rem;"></i>
+                        </div>
+                    }
+                </div>
+
+                <!-- Infos -->
+                <div class="col-md-9">
+                    <h3 class="fw-bold text-dark">@Model.Nom</h3>
+                    <p class="text-muted mb-4">@Model.Secteur - @Model.Domaine</p>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p><i class="bi bi-envelope text-primary"></i> <strong>Email :</strong> @Model.Email</p>
+                            <p><i class="bi bi-geo-alt text-danger"></i> <strong>Adresse :</strong> @Model.Adresse</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p><i class="bi bi-building text-success"></i> <strong>Ville :</strong> @Model.Ville</p>
+                            <p><i class="bi bi-flag text-warning"></i> <strong>Pays :</strong> @Model.Pays</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
-
 <div class="row">
     @foreach (var offre in Model.Offres)
     {
