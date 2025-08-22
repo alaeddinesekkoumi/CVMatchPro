@@ -26,5 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images\entreprises\" />
+    <Folder Include="wwwroot\images\candidats\" />
   </ItemGroup>
 </Project>

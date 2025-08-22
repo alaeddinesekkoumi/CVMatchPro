@@ -16,6 +16,7 @@
 
         public ICollection<Competence>? CompetencesRequises { get; set; }
         public ICollection<MatchingResult>? MatchingResults { get; set; }
+        public ICollection<Candidature>? Candidatures { get; set; }
     }
 
 }

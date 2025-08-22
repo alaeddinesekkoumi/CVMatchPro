@@ -224,4 +224,40 @@ public class EntreprisesController : Controller
         return RedirectToAction("Profil");
     }
 
+    public async Task<IActionResult> Candidatures(int? offreId = null)
+    {
+        // Récupérer l'entreprise actuelle
+        var userId = _userManager.GetUserId(User);
+        var entreprise = await _context.Entreprises
+            .FirstOrDefaultAsync(e => e.UserId == userId);
+
+        if (entreprise == null) return NotFound();
+
+        // Récupérer toutes les candidatures liées aux offres de cette entreprise
+        var query = _context.Candidatures
+            .Include(c => c.Candidat)
+                .ThenInclude(c => c.CVs)  // Inclure les CV du candidat
+            .Include(c => c.OffreEmploi)
+            .Where(c => c.OffreEmploi.EntrepriseId == entreprise.Id);
+
+        // Si on passe un filtre pour une offre spécifique
+        if (offreId.HasValue)
+        {
+            query = query.Where(c => c.OffreEmploiId == offreId.Value);
+        }
+
+        var candidatures = await query
+            .OrderByDescending(c => c.DatePostulation)
+            .ToListAsync();
+
+        return View("~/Views/Candidatures/Candidatures.cshtml", candidatures);
+    }
+
+   
+
+
+
+
+
+
 }

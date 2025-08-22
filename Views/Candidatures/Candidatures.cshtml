@@ -1,0 +1,71 @@
+﻿@model IEnumerable<CVMatchPro.Models.Candidature>
+
+<h2 class="mb-4 text-center fw-bold">Candidatures reçues</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center py-3 rounded shadow-sm">
+        Aucune candidature pour vos offres.
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var c in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary fw-bold">@c.Candidat?.Nom</h5>
+                        <p class="card-subtitle text-muted mb-2">
+                            <i class="bi bi-envelope-fill"></i> @c.Candidat?.Email
+                        </p>
+
+                        <p class="mb-2">
+                            <strong>Offre :</strong>
+                            <span class="badge bg-info text-dark">@c.OffreEmploi?.Titre</span>
+                        </p>
+
+                        <p class="mb-2">
+                            <strong>Date de postulation :</strong>
+                            <span class="text-secondary">@c.DatePostulation.ToString("dd/MM/yyyy")</span>
+                        </p>
+
+                        <div class="mb-2">
+                            <strong>CV(s) :</strong><br />
+                            @if (c.Candidat?.CVs != null && c.Candidat.CVs.Any())
+                            {
+                                foreach (var cv in c.Candidat.CVs)
+                                {
+                                    <a href="@cv.Url" target="_blank" class="btn btn-outline-primary btn-sm mb-1 w-100">
+                                        📄 @System.IO.Path.GetFileName(cv.Url)
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">Aucun CV</span>
+                            }
+                        </div>
+
+                        <div class="mt-auto">
+                            <a href="@Url.Action("VoirParOffre", "MatchingResults", new { offreId = c.OffreEmploiId })"
+                               class="btn btn-success w-100">
+                                Voir résultats du matching
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    /* Hover effect pour les cards */
+    .card:hover {
+        transform: translateY(-5px);
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+</style>

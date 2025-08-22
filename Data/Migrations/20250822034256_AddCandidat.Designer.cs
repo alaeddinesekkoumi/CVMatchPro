@@ -4,6 +4,7 @@ using CVMatchPro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CVMatchPro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250822034256_AddCandidat")]
+    partial class AddCandidat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,16 +125,11 @@ namespace CVMatchPro.Data.Migrations
                     b.Property<int>("OffreEmploiId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OffreEmploiId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CandidatId");
 
                     b.HasIndex("OffreEmploiId");
-
-                    b.HasIndex("OffreEmploiId1");
 
                     b.ToTable("Candidatures");
                 });
@@ -499,10 +497,6 @@ namespace CVMatchPro.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CVMatchPro.Models.OffreEmploi", null)
-                        .WithMany("Candidatures")
-                        .HasForeignKey("OffreEmploiId1");
-
                     b.Navigation("Candidat");
 
                     b.Navigation("OffreEmploi");
@@ -635,8 +629,6 @@ namespace CVMatchPro.Data.Migrations
 
             modelBuilder.Entity("CVMatchPro.Models.OffreEmploi", b =>
                 {
-                    b.Navigation("Candidatures");
-
                     b.Navigation("CompetencesRequises");
 
                     b.Navigation("MatchingResults");

@@ -14,25 +14,43 @@
 
         <p><strong>Compétences requises :</strong></p>
         <ul>
-        @if (Model.CompetencesRequises != null && Model.CompetencesRequises.Any())
-        {
-            foreach (var comp in Model.CompetencesRequises)
+            @if (Model.CompetencesRequises != null && Model.CompetencesRequises.Any())
             {
-                <li>@comp.Nom</li>
+                foreach (var comp in Model.CompetencesRequises)
+                {
+                    <li>@comp.Nom</li>
+                }
             }
-        }
-        else
-        {
-            <li>Aucune compétence spécifiée</li>
-        }
+            else
+            {
+                <li>Aucune compétence spécifiée</li>
+            }
         </ul>
 
         @if (Model.Entreprise != null)
         {
             <p><strong>Entreprise :</strong> @Model.Entreprise.Nom</p>
         }
+
+        <!-- ✅ Bouton Postuler uniquement pour les candidats -->
+        @if (User.IsInRole("Candidat"))
+        {
+            <form asp-controller="Candidatures" asp-action="Postuler" method="post" class="mt-3">
+                <input type="hidden" name="offreId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i> Postuler
+                </button>
+            </form>
+        }
+
+        <!-- ✅ Message de retour -->
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-info mt-3">
+                @TempData["Message"]
+            </div>
+        }
     </div>
 </div>
 
-<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Retour</a>
-
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary mt-3">Retour</a>

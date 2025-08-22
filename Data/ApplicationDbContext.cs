@@ -18,8 +18,10 @@ namespace CVMatchPro.Data
         public DbSet<OffreEmploi> OffresEmploi { get; set; }
         public DbSet<Competence> Competences { get; set; }
         public DbSet<MatchingResult> MatchingResults { get; set; }
+        public DbSet<Candidature> Candidatures { get; set; }
 
-       
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,8 +60,21 @@ namespace CVMatchPro.Data
             modelBuilder.Entity<MatchingResult>()
                 .HasIndex(m => new { m.CVId, m.OffreEmploiId })
                 .IsUnique();
+            // 🔗 Relation Candidature <-> Candidat
+            modelBuilder.Entity<Candidature>()
+                .HasOne(c => c.Candidat)
+                .WithMany()
+                .HasForeignKey(c => c.CandidatId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-           
+            // 🔗 Relation Candidature <-> OffreEmploi
+            modelBuilder.Entity<Candidature>()
+                .HasOne(c => c.OffreEmploi)
+                .WithMany()
+                .HasForeignKey(c => c.OffreEmploiId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
 
 
 

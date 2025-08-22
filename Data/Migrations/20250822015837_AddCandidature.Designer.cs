@@ -4,6 +4,7 @@ using CVMatchPro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CVMatchPro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250822015837_AddCandidature")]
+    partial class AddCandidature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,21 +81,12 @@ namespace CVMatchPro.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Adresse")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telephone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -122,16 +116,11 @@ namespace CVMatchPro.Data.Migrations
                     b.Property<int>("OffreEmploiId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OffreEmploiId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CandidatId");
 
                     b.HasIndex("OffreEmploiId");
-
-                    b.HasIndex("OffreEmploiId1");
 
                     b.ToTable("Candidatures");
                 });
@@ -499,10 +488,6 @@ namespace CVMatchPro.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CVMatchPro.Models.OffreEmploi", null)
-                        .WithMany("Candidatures")
-                        .HasForeignKey("OffreEmploiId1");
-
                     b.Navigation("Candidat");
 
                     b.Navigation("OffreEmploi");
@@ -635,8 +620,6 @@ namespace CVMatchPro.Data.Migrations
 
             modelBuilder.Entity("CVMatchPro.Models.OffreEmploi", b =>
                 {
-                    b.Navigation("Candidatures");
-
                     b.Navigation("CompetencesRequises");
 
                     b.Navigation("MatchingResults");

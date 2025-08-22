@@ -5,17 +5,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Bienvenue @Model.Nom</h2>
+<div class="container mt-5">
+    <h2 class="mb-4">Mon profil</h2>
 
-<!-- 🧾 Informations de base -->
-<div class="card mt-4">
-    <div class="card-header bg-primary text-white">
-        Informations du Candidat
-    </div>
-    <div class="card-body">
-        <p><strong>Email :</strong> @Model.Email</p>
+    <div class="card shadow-sm p-4">
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img src="@(Model.PhotoUrl ?? "/images/candidats/default.png")"
+                     class="img-thumbnail mb-3" style="width:150px; height:150px; object-fit:cover;" />
+                <a asp-action="EditProfil" class="btn btn-primary w-100">
+                    <i class="bi bi-pencil-square me-2"></i> Modifier le profil
+                </a>
+            </div>
+
+            <div class="col-md-9">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Nom :</strong> @Model.Nom</li>
+                    <li class="list-group-item"><strong>Email :</strong> @Model.Email</li>
+                    <li class="list-group-item"><strong>Téléphone :</strong> @Model.Telephone</li>
+                    <li class="list-group-item"><strong>Adresse :</strong> @Model.Adresse</li>
+                </ul>
+
+                <h5 class="mt-4">Mes CV(s)</h5>
+                @if (Model.CVs != null && Model.CVs.Any())
+                {
+                    <div class="d-flex flex-column gap-2">
+                        @foreach (var cv in Model.CVs)
+                        {
+                            <a href="@cv.Url" target="_blank" class="btn btn-outline-primary btn-sm">
+                                📄 @cv.FichierNom
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info mt-2">Aucun CV ajouté.</div>
+                }
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <!-- 📤 Bouton de téléversement -->
 <div class="mt-4">

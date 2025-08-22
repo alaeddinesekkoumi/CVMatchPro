@@ -1,52 +1,79 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject CVMatchPro.Data.ApplicationDbContext _context
+
 
 @model IEnumerable<CVMatchPro.Models.OffreEmploi>
+
 
 @{
     ViewData["Title"] = "Accueil";
     var isAuthenticated = SignInManager.IsSignedIn(User);
+    int nbOffres = 0;
+    int nbCandidatures = 0;
+    string logoUrl = "~/images/entreprises";
+    string entrepriseNom = "";
 }
 
 <div class="container mt-5">
-
-    <!-- Boutons selon l'utilisateur -->
-    <div class="d-flex justify-content-center gap-3 mb-5">
-        <a class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm" asp-controller="CVs" asp-action="Upload">
-            <i class="bi bi-upload me-2"></i> Uploader un CV
-        </a>
-
-        @if (isAuthenticated)
-        {
-            var user = await UserManager.GetUserAsync(User);
-            var roles = await UserManager.GetRolesAsync(user);
-            var role = roles.FirstOrDefault();
-
-            if (role == "Candidat")
-            {
-                <a class="btn btn-info btn-lg rounded-pill px-4 shadow-sm" asp-controller="Candidat" asp-action="Profil">
-                    <i class="bi bi-person-circle me-2"></i> Mon Profil
-                </a>
-            }
-            else if (role == "Entreprise")
-            {
-                <a class="btn btn-info btn-lg rounded-pill px-4 shadow-sm" asp-controller="Entreprises" asp-action="Profil">
-                    <i class="bi bi-building me-2"></i> Mon Profil
-                </a>
-            }
-        }
-    </div>
-
-    <!-- Section Offres d'emploi pour candidats -->
     @if (isAuthenticated)
     {
         var user = await UserManager.GetUserAsync(User);
         var roles = await UserManager.GetRolesAsync(user);
         var role = roles.FirstOrDefault();
 
-        if (role == "Candidat")
+        if (role == "Entreprise")
         {
+            // Récupérer l'entreprise depuis la DB
+            var entreprise = await _context.Entreprises
+            .Include(e => e.Offres)
+            .ThenInclude(o => o.MatchingResults) // ou Candidatures si tu utilises cette table
+            .FirstOrDefaultAsync(e => e.UserId == user.Id);
+
+            if (entreprise != null)
+            {
+                nbOffres = entreprise.Offres?.Count ?? 0;
+                nbCandidatures = entreprise.Offres?.Sum(o => o.MatchingResults?.Count ?? 0) ?? 0;
+                logoUrl = entreprise.LogoUrl ?? "~/images/logo.png";
+                entrepriseNom = entreprise.Nom;
+            }
+
+            <!-- ====================== DASHBOARD ENTREPRISE ====================== -->
+            <div class="text-center mb-5">
+                <img src="@logoUrl" alt="Logo du site" style="height:80px;" />
+                <h1 class="mt-3 fw-bold">Bienvenue sur votre espace entreprise</h1>
+                <p class="lead text-muted">La plateforme qui connecte talents et entreprises 🚀</p>
+            </div>
+
+            <!-- Bannière -->
+            <div class="p-5 mb-5 bg-primary text-white rounded-3 text-center shadow">
+                <h2>👋 Bonjour, @user.UserName</h2>
+                <p>Gérez vos offres, consultez vos candidats et développez votre équipe.</p>
+            </div>
+
+           
+
+
+
+            <!-- Actions rapides -->
+            <div class="d-flex justify-content-center gap-3">
+               
+                <a asp-controller="Entreprises" asp-action="Profil" class="btn btn-outline-dark btn-lg rounded-pill shadow">
+                    <i class="bi bi-building me-2"></i> Voir mon profil
+                </a>
+            </div>
+        }
+        else if (role == "Candidat")
+        {
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a asp-controller="Candidat" asp-action="Profil" class="btn btn-outline-dark btn-lg rounded-pill shadow">
+                    <i class="bi bi-person-circle me-2"></i> Mon profil
+                </a>
+            </div>
+            <!-- ====================== OFFRES POUR CANDIDATS ====================== -->
             <h2 class="text-center mb-4 fw-bold text-dark">🎯 Offres d’emploi récentes</h2>
 
             <div class="row">
@@ -57,10 +84,10 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-primary fw-bold">@offre.Titre</h5>
                                 <p class="card-text text-muted">
-                                    @(offre.Description?.Length > 120 
-                                        ? offre.Description.Substring(0, 120) + "..." 
-                                        : offre.Description)
-                                </p>
+                                    @(offre.Description?.Length > 120
+                                                            ? offre.Description.Substring(0, 120) + "..."
+                                                            : offre.Description)
+                    </p>
 
                                 <ul class="list-unstyled small text-secondary mb-3">
                                     <li><i class="bi bi-geo-alt-fill text-danger"></i> @offre.Lieu</li>
@@ -69,7 +96,7 @@
                                 </ul>
 
                                 <div class="mt-auto d-flex flex-column gap-2">
-                                    <a asp-controller="OffreEmplois" asp-action="Details" asp-route-id="@offre.Id" 
+                                    <a asp-controller="OffreEmplois" asp-action="Details" asp-route-id="@offre.Id"
                                        class="btn btn-outline-primary w-100 rounded-pill">
                                         <i class="bi bi-eye"></i> Voir l’offre
                                     </a>
@@ -88,12 +115,15 @@
             }
         }
     }
+    else
+    {
+        <!-- ====================== ACCUEIL VISITEUR ====================== -->
+        <div class="text-center mt-5">
+            <h1 class="fw-bold">Bienvenue sur CVMatchPro</h1>
+            <p class="lead">La plateforme qui connecte les talents aux meilleures entreprises.</p>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg mt-3">Se connecter</a>
+        </div>
+    }
 </div>
 
-<style>
-    .hover-shadow:hover {
-        transform: translateY(-5px);
-        transition: 0.3s ease-in-out;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-    }
-</style>
+

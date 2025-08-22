@@ -84,11 +84,14 @@
                     </p>
 
                     <div class="d-flex justify-content-between gap-2">
-                        
-
                         <a href="@Url.Action("VoirParOffre", "MatchingResults", new { offreId = offre.Id })"
                            class="btn btn-success">
                             Voir Résultats
+                        </a>
+
+                        <a href="@Url.Action("Candidatures", "Entreprises", new { offreId = offre.Id })"
+                           class="btn btn-info">
+                            Voir les candidatures
                         </a>
 
                         <button class="btn btn-warning"
@@ -188,3 +191,4 @@
         </div>
     </div>
 </div>
+
